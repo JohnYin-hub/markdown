@@ -1,7 +1,5 @@
 # Git学习笔记
 
-
-
 ```c++
 >>> 描述：
     代码托管平台;
@@ -39,6 +37,15 @@ ssh-keygen -t rsa -C 'xxx@xxx.com' 然后一路回车(-C 参数是你的邮箱�
 cd ~/.ssh
 // then, add the key to gitlab sshkeys
 ```
+
+```shell
+#公钥：
+	openssl genrsa -out rsa_private_key.pem 1024
+#私钥：
+	openssl rsa -in rsa_private_key.pem -pubout -out rsa_public_key.pem
+```
+
+
 
 ####  SSH安装
 
@@ -103,17 +110,21 @@ cd ~/.ssh
 
     格式：git branch [ options ] / <args>
 
-    | 选项                     | 说明                                         |
-    | ------------------------ | -------------------------------------------- |
-    | git branch               | 显示本地已缓存分支                           |
-    | git branch < branch >    | 新建分支，命名为 < branch >                  |
-    | git branch -a            | 列出所有分支                                 |
-    | git branch -d < branch > | 删除< branch >所示分支                       |
-    | git branch -v            | 显示本地已缓存分支和其分支的最后一笔提交记录 |
-    | git branch --merged      | 显示 与当前分支 已合并的 本地已缓存分支      |
-    | git branch --no-merged   | 显示 与当前分支 未合并的 本地已缓存分支      |
+    | 选项                          | 说明                                         |
+    | ----------------------------- | -------------------------------------------- |
+    | git branch                    | 显示本地已缓存分支                           |
+    | git branch < name >           | 新建分支，命名为 < name >                    |
+    | git branch -a                 | 列出所有分支                                 |
+    | git branch -d < branch >      | 删除< branch >所示分支                       |
+    | git branch -m < old > < new > | 更改分支的名字(分支在本地，还未推送到远程)   |
+    | git branch -v                 | 显示本地已缓存分支和其分支的最后一笔提交记录 |
+    | git branch --merged           | 显示 与当前分支 已合并的 本地已缓存分支      |
+    | git branch --no-merged        | 显示 与当前分支 未合并的 本地已缓存分支      |
     
-    
+-   **参考：**
+
+    -   CSDN -《【Git】如何修改分支名》：https://blog.csdn.net/weixin_38629529/article/details/125359597
+
 
 ------
 
@@ -483,7 +494,14 @@ git push --set-upstream origin llh-0114
 
 ------
 
+### git revert
 
+-   **描述：**
+    -   
+
+
+
+------
 
 ### git status
 
@@ -532,3 +550,9 @@ git push --set-upstream origin llh-0114
 
 ------
 
+
+
+## Git问题
+
+-   **参考：**
+    -   http://www.manongjc.com/detail/28-cabqggnjscbwnly.html
