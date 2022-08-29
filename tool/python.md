@@ -185,3 +185,203 @@ pip install nbmerge
 nbmerge 1.ipynb 2.ipynb > 3.ipynb
 ```
 
+### logging 模块
+
+```python
+'''
+整体说明：
+01 日志就是记录一些信息，方便查询或者辅助开发。
+02 日志有两种形式，一种是记录到文件中，一种是显示屏幕（控制台）中。
+03 日志有3个版本，低配版、标配版、高配版。
+04 日志的5种等级，由低到高的顺序如下：
+    （1）logging.debug('调试模式')，默认值为10
+    （2）logging.info('正常运行') ，默认值为20
+    （3）logging.warning('警告')，默认值为30
+    （4）logging.error('错误')，默认值为40
+    （5）logging.critical('系统崩了')，默认值为50
+05 默认的日志级别设置为warning。
+'''
+
+# 低配版本：只能写入文件或者是屏幕显示。
+import logging
+
+logging.basicConfig(
+    # level= 10,
+    level=logging.DEBUG,  # 设置显示的级别
+    format='%(asctime)s %(filename)s [line:%(lineno)d] %(levelname)s %(message)s ',  # 设置日志显示格式
+    datefmt="%Y-%m-%d",  # 设置日期，与astime对应
+    filename='a.log',  # 默认我a模式，使用的是gbk形式编码。
+    filemode="a"  # 可以修改模式，但是一般不用修改
+)
+
+logging.debug("调试模式")
+logging.info("正常运行")
+logging.warning("警告")
+logging.error("错误")
+logging.critical("系统崩溃了")
+
+# 标配版本：既能在文件中写入，又在屏幕显示。
+import logging
+# 创建logging对象
+logger = logging.getLogger()
+# 创建文件对象
+fh1 = logging.FileHandler("a1,log",encoding="utf8")  # 一定要指定编码方式，否则程序会报错。
+fh2 = logging.FileHandler("a2.log",encoding="utf8")
+
+# 创建屏幕对象
+sh =logging.StreamHandler()
+
+# 定义显示格式
+formater1 = logging.Formatter(
+    fmt='%(asctime)s %(filename)s [line:%(lineno)d] %(levelname)s %(message)s', # fmt变量名是固定的。
+    datefmt= "%Y-%m-%d %H:%M:%S",
+)
+
+formater2 = logging.Formatter(
+    fmt='%(asctime)s %(filename)s [line:%(lineno)d] %(levelname)s %(message)s', # fmt变量名是固定的。
+    datefmt= "%Y-%m-%d %H:%M:%S",
+)
+formater3 = logging.Formatter(
+    fmt='%(asctime)s %(filename)s %(message)s', # fmt变量名是固定的。
+    datefmt= "%Y-%m-%d %H:%M:%S",
+)
+
+# 给对象绑定格式
+fh1.setFormatter(formater1)
+fh2.setFormatter(formater2)
+sh.setFormatter(formater3)
+
+# 给logger对象添加其他对象
+logger.addHandler(fh1)
+logger.addHandler(fh2)
+logger.addHandler(sh)
+
+# 设置logger级别
+logger.setLevel(30)
+sh.setLevel(40)
+fh1.setLevel(40)
+fh2.setLevel(50)
+
+logging.debug('调试模式')  # 10
+logging.info('正常运行')  # 20
+logging.warning('警告')  # 30
+logging.error('错误')  # 40
+logging.critical('系统崩了')  # 50
+
+# 高配版本：通过导入文件（导入字典的方式）写日志Django
+
+import os
+import logging.config
+
+# 定义三种日志输出格式 开始
+
+standard_format = '[%(asctime)s][%(threadName)s:%(thread)d][task_id:%(name)s][%(filename)s:%(lineno)d]' 
+                  '[%(levelname)s][%(message)s]' #其中name为getlogger指定的名字
+
+simple_format = '[%(levelname)s][%(asctime)s][%(filename)s:%(lineno)d]%(message)s'
+
+id_simple_format = '[%(levelname)s][%(asctime)s] %(message)s'
+
+# 定义日志输出格式 结束
+
+# print(__file__)
+logfile_dir = os.path.dirname(os.path.abspath(__file__))  # log文件的目录
+
+logfile_name = '高配版.log'  # log文件名
+
+# # 如果不存在定义的日志目录就创建一个
+# if not os.path.isdir(logfile_dir):
+#     os.mkdir(logfile_dir)
+
+# log文件的全路径
+logfile_path = os.path.join(logfile_dir, logfile_name)
+
+
+# log配置字典
+# 第一层键值对的键固定的关键字不能改变，即version、disable_existing_loggers、formatters、filters、handlers、loggers不能改变。
+
+LOGGING_DIC = {
+    'version': 1, # 版本
+    'disable_existing_loggers': False,  #
+    'formatters': {
+        'standard': {
+            'format': standard_format
+        },
+        'simple': {
+            'format': simple_format
+        },
+        'id_simple_format':{
+                'format': id_simple_format
+        }
+    },
+    'filters': {},
+    'handlers': {
+        #打印到终端的日志
+        'console': {
+            'level': 'ERROR',  # 设置在终端显示的等级
+            'class': 'logging.StreamHandler',  # 打印到屏幕
+            'formatter': 'simple'
+        },
+        #打印到文件的日志,收集info及以上的日志
+        'default': {
+            'level': 'DEBUG',  # 设置在文件打印的等级
+            'class': 'logging.handlers.RotatingFileHandler',  # 保存到文件
+            'formatter': 'standard',
+            'filename': logfile_path,  # 日志文件
+            'maxBytes': 300,  # 日志大小 300bytes
+            'backupCount': 5, # 最多只有5个文件
+            'encoding': 'utf-8',  # 日志文件的编码，再也不用担心中文log乱码了
+        },
+    },
+    'loggers': {
+        #logging.getLogger(__name__)拿到的logger配置
+        '': {
+            'handlers': ['default', 'console'],  # 这里把上面定义的两个handler都加上，即log数据既写入文件又打印到屏幕
+            'level': 'DEBUG',
+            'propagate': True,  # 向上（更高level的logger）传递
+        },
+    },
+}
+
+
+
+logging.config.dictConfig(LOGGING_DIC)  # 导入上面定义的logging配置
+# # logging.config  # 将你写好的logging 字典 在导入logging.config后，传到logging模块中
+logger = logging.getLogger()  # 生成一个log实例  通过字典自己设置的个性化的log对象
+
+
+logging.debug('调试模式')  # 10
+logging.info('正常运行')  # 20
+logging.warning('警告')  # 30
+logging.error('错误')  # 40
+logging.critical('系统崩了')  # 50
+```
+
+#### 		conda自动启用环境
+
+```
+conda create --name <name>
+conda create --name <name> python=3.8  #可命令环境的python版本
+conda config --set auto_activate_base false
+
+conda remove --name xxxx  --all #彻底删除旧环境
+```
+
+#### 		pip切换镜像源
+
+```
+/Usr/home/.pip/pip.conf
+[global]
+index-url = http://mirrors.aliyun.com/pypi/simple/
+[install]
+trusted-host=mirrors.aliyun.com
+#----------------------------------------------------
+conda config --add channels http://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/main/
+conda config --add channels http://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/free/
+conda config --set show_channel_urls yes
+
+#-----------------------------------------------------
+conda config --show-sources
+```
+
+### 

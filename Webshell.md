@@ -1,10 +1,10 @@
 ### WebShell 概述
 
-![image-20211028104035971](/Users/johnma/Library/Application Support/typora-user-images/image-20211028104035971.png)
+![image-20211028104035971](https://tva1.sinaimg.cn/large/e6c9d24ely1h57y7c8zwjj21620g8tck.jpg)
 
 
 
-![image-20211028141253921](/Users/johnma/Library/Application Support/typora-user-images/image-20211028141253921.png)
+![image-20211028141253921](https://tva1.sinaimg.cn/large/e6c9d24ely1h57y7hi4pqj21lh0u00yf.jpg)
 
 ### 
 
@@ -136,3 +136,4 @@ $定义变量
 反弹shell 
 
 敏感函数动态调用，（声明，执行）
+
