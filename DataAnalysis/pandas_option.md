@@ -74,8 +74,6 @@ df.fillna(df.mean()['one':'two']) #指定列平均值填充
 df 的NA属于np NA ，其本质类型是float np.nan!=np.n
 ```
 
-
-
 #### 存进去是列表，读出来是字符串
 
 - option1 : eval()

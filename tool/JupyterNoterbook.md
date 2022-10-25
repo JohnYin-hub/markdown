@@ -71,3 +71,20 @@ c.NotebookApp.ip='*' c.NotebookApp.password = u'sha1:ea48948e0e51:7f619460f77a6d
 用&让命令后台运行, 并把标准输出写入jupyter.log中
 
 nohup表示no hang up, 就是不挂起, 这个命令执行后即使终端退出, Jupyter也不会停止运行
+
+## Jupyter notebook 永不挂机
+
+```shell
+nohup jupyter notebook --allow-root --port 1104 > jupyter.log 2>1 &
+```
+
+### 两个notebook   合并   nbmerge
+
+```shell
+#安装包
+pip install nbmerge
+#命令行操作文件
+nbmerge 1.ipynb 2.ipynb > 3.ipynb
+```
+
+### 

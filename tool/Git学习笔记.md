@@ -8,15 +8,11 @@
     https://www.runoob.com/git/git-tutorial.html
 ```
 
-
-
 ## Git配置
 
 ```c++
 >>>
 ```
-
-
 
 ### Git编辑器
 
@@ -27,8 +23,6 @@
 >>> 操作：
     git config --global core.editor "vim"
 ```
-
-
 
 ### Git ssh配置
 
@@ -44,8 +38,6 @@ cd ~/.ssh
 #私钥：
 	openssl rsa -in rsa_private_key.pem -pubout -out rsa_public_key.pem
 ```
-
-
 
 ####  SSH安装
 
