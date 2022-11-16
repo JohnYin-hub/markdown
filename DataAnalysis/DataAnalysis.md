@@ -1,12 +1,25 @@
 ### 数据分析起手式
 
-#### 不放回抽取
+#### 抽取元素
+
+- option1 np.random.choice()
 
 ```python
-np.random.seed(1234)
-index = np.random.choice(np.arange(number1),number2,replace=False)
+np.random.choice(np.arange(number1),number2,replace=True)
+# 默认repalce=True 表示重复抽取
+```
+
+- Option2 np.random.permutation()
+
+```python
 np.ramdom.seed(1234)
 inde = np.ramdom.permutation(np.arange())
+
+# 不放回抽取
+np.random.seed(1234)
+index = np.random.choice(np.arange(number1),number2,replace=False)
+# 取剩下的index---
+res_index = np.setdiff1d(np.arange(number1),index)
 ```
 
 #### pandas去重

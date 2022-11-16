@@ -400,3 +400,79 @@ logging.error('错误')  # 40
 logging.critical('系统崩了')  # 50
 ```
 
+# Python 嵌套的字典(dict)转成object对象的方法
+
+## 1、使用自定义class
+
+```python
+class obj(object):
+    def __init__(self, d):
+        for a, b in d.items():
+            if isinstance(b, (list, tuple)):
+               setattr(self, a, [obj(x) if isinstance(x, dict) else x for x in b])
+            else:
+               setattr(self, a, obj(b) if isinstance(b, dict) else b)
+d = {'a': 1, 'b': {'c': 2}, 'd': ["hi", {'foo': "cjavapy"}]}
+o = obj(d)
+print(o)
+print(o.a)
+print(o.b)
+print(o.d)
+print(o.d[1].foo)
+```
+
+## 2、使用json
+
+```python
+import json
+class obj(object):
+    def __init__(self, dict_):
+        self.__dict__.update(dict_)
+def dict2obj(d):
+    return json.loads(json.dumps(d), object_hook=obj)
+d = {'a': 1, 'b': {'c': 2}, 'd': ['hi', {'foo': 'cjavapy'}]}
+o = dict2obj(d)
+print(o)
+print(o.a)
+print(o.b)
+print(o.d)
+print(o.d[1].foo)
+```
+
+```python
+# json 转对象
+import json
+from collections import namedtuple
+data = json.loads(json_str, object_hook=lambda d: namedtuple('data', d.keys())(*d.values()))
+```
+
+
+
+## 3、使用namedtuple
+
+**参考文档：**http://docs.python.org/library/collections.html?highlight=collections#namedtuple-factory-function-for-tuples-with-named-fields
+
+```python
+from collections import namedtuple
+class struct(object):
+    def __new__(cls, data):
+        if isinstance(data, dict):
+            return namedtuple(
+                'struct', data.keys()
+            )(
+                *(struct(val) for val in data.values())
+            )
+        elif isinstance(data, (tuple, list, set, frozenset)):
+            return type(data)(struct(_) for _ in data)
+        else:
+            return data
+d = {'a': 1, 'b': {'c': 2}, 'd': ['hi', {'foo': 'cjavapy'}]}
+o = struct(d)
+print(o)
+print(o.a)
+print(o.b)
+print(o.d)
+print(o.d[1].foo)
+```
+
+# Python csv模块

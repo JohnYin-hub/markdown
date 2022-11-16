@@ -27,6 +27,8 @@ sudo usermod -aG docker $USER
 DOCKER_OPTS="--registry-mirror=https://registry.docker-cn.com"
 #重启服务
 sudo service docker restart
+#登录阿里云镜像
+docker login --username=13026376379 registry.cn-shanghai.aliyuncs.com
 ```
 
 #### image 操作
@@ -102,3 +104,20 @@ $ docker container kill [containerID]
 $ docker container run --rm -p 8000:3000 -it koa-demo /bin/bash
 ```
 
+### run
+
+docker run 背后的故事：
+
+1 检查本地是否存在制定的镜像，不存在就从公有仓库下载。
+
+2 利用本地镜像创建并启动一个容器。
+
+3 分配一个文件系统，并在只读的镜像层外面挂载一层可读写层。
+
+4 从宿主机配置的网桥接口桥接一个虚拟接口到容器中去。
+
+5 从地址池配置一个IP地址给容器。
+
+6 执行用户的指定的用户程序。
+
+7 执行完毕后容器被终止。

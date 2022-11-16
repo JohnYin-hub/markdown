@@ -1,3 +1,28 @@
+# NumPy Ndarray 对象
+
+NumPy 最重要的一个特点是其 N 维数组对象 ndarray，它是一系列同类型数据的集合，以 0 下标为开始进行集合中元素的索引。
+
+ndarray 对象是用于存放**同类型**元素的多维数组。
+
+ndarray 中的每个元素在内存中都有相同存储大小的区域。
+
+ndarray 内部由以下内容组成：
+
+- 一个指向数据（内存或内存映射文件中的一块数据）的**指针**。
+- 数据类型或 **dtype**，描述在数组中的固定大小值的格子。
+- 一个表示数组形状（shape）的**元组**，表示各维度大小的元组。
+- 一个**跨度元组**（stride），其中的整数指的是为了前进到当前维度下一个元素需要"跨过"的字节数。
+
+ndarray 的内部结构:
+
+
+
+![img](https://www.runoob.com/wp-content/uploads/2018/10/ndarray.png)
+
+跨度可以是负数，这样会使数组在内存中后向移动，切片中 **obj[::-1]** 或 **obj[:,::-1]** 就是如此。
+
+创建一个 ndarray 只需调用 NumPy 的 array 函数即可：
+
 # numpy 创建向量
 
 - #### np.array 直接创建，接受list或tuple参数
@@ -18,7 +43,7 @@ for i in range(10):
     print(i)
 ```
 
-- #### 整数与正太分布
+- #### 整数随机与正太分布
 
 ```python
 np.random.randn(2,3,4)  正态
@@ -106,3 +131,43 @@ a = np.arange(1, 19, 1).reshape(3,3,2)
 print(a)
 print(np.diag(a))  #ValueError: Input must be 1- or 2-d
 ```
+
+# numpy 筛选数据
+
+- #### numpy.nonzero() 返回输入数组中非零元素的索引。
+
+```python
+import numpy as np 
+ 
+a = np.array([[30,40,0],[0,20,10],[50,0,60]])  
+print ('我们的数组是：')
+print (a)
+print ('\n')
+print ('调用 nonzero() 函数：')
+print (np.nonzero (a))
+# -------
+我们的数组是：
+[[30 40  0]
+ [ 0 20 10]
+ [50  0 60]]
+
+
+调用 nonzero() 函数：
+(array([0, 0, 1, 1, 2, 2]), array([0, 1, 1, 2, 0, 2]))
+```
+
+- #### numpy.where() 函数返回输入数组中满足给定条件的元素的索引。
+
+```python
+import numpy as np 
+ 
+x = np.arange(9.).reshape(3,  3)  
+print ('我们的数组是：')
+print (x)
+print ( '大于 3 的元素的索引：')
+y = np.where(x >  3)  
+print (y)
+print ('使用这些索引来获取满足条件的元素：')
+print (x[y])
+```
+

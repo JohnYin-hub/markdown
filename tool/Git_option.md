@@ -58,19 +58,11 @@ cd ~/.ssh
     https://blog.csdn.net/li528405176/article/details/82810342
 ```
 
-
-
-
-
-
-
 ## Git命令
 
 ```c++
 必须要说明的是，一般一个仓库中的内容代表一个项目。
 ```
-
-
 
 ### git add
 
@@ -86,11 +78,8 @@ cd ~/.ssh
     | -------------- | ----------------------------------------------------- |
     | git add <file> | 将指定文件添加到Git跟踪管理、将工作区文件添加到暂存区 |
 
-    
 
 ------
-
-
 
 ### git branch
 
@@ -120,8 +109,6 @@ cd ~/.ssh
 
 ------
 
-
-
 ### git checkout
 
 -   **描述：**
@@ -142,8 +129,6 @@ cd ~/.ssh
 
 ------
 
-
-
 ### git clone
 
 -   **描述：**
@@ -159,8 +144,6 @@ cd ~/.ssh
     | git clone <URL> | 克隆<URL>所示远程仓库到本地 |
 
     
-
-
 
 ### git commit
 
@@ -184,8 +167,6 @@ cd ~/.ssh
 
 ------
 
-
-
 ### git config
 
 -   **描述：**
@@ -205,12 +186,10 @@ cd ~/.ssh
     | git config --global user.name  <name>    | 配置用户名                                                |
     | git config --global user.email  <mail>   | 配置用户邮件                                              |
     | git config --global core.editor <editor> | 配置文本编辑器                                            |
-
+    | git config core.fileMode false           | 忽略所有文件的filemode                                    |
     
 
 ------
-
-
 
 ### git diff
 
@@ -240,8 +219,6 @@ cd ~/.ssh
 
 ------
 
-
-
 ### git fetch
 
 -   **描述：**
@@ -263,8 +240,6 @@ cd ~/.ssh
     2.  必须注意 fetch 命令只会将数据下载到你的本地仓库——它并不会自动合并或修改你当前的工作。 当准备好时你必须手动将其合并入你的工作。  
 
 ------
-
-
 
 ### git log
 
@@ -336,13 +311,7 @@ cd ~/.ssh
     | git merge < obj-branch > | 将< obj-branch >分支与当前所在分支合并   |
     | git merget --abort       | 中断合并，将所在分支回退到合并之前的状态 |
 
-
-
-
-
 ------
-
-
 
 ### git mv
 
@@ -380,11 +349,7 @@ cd ~/.ssh
 
     
 
-
-
 ------
-
-
 
 ### git push
 
@@ -413,8 +378,6 @@ git push --set-upstream origin llh-0114
 
 ------
 
-
-
 ### git reset
 
 -   **描述：**
@@ -430,11 +393,8 @@ git push --set-upstream origin llh-0114
     | git reset HEAD < file >          | 将< file >所示文件从暂存区移至工作区，取消暂存 |
     | git reset --hard < commit-code > | 回退到< commit-code >所示提交                  |
     
-    
 
 ------
-
-
 
 ### git rm
 
@@ -451,12 +411,10 @@ git push --set-upstream origin llh-0114
     | git rm <file>           | 将文件从Git跟踪列表中移除，Git不再对文件进行管理，同时从磁盘删除 |
     | git rm -f <file>        | 强制删除，将删除已在暂存区或已修改的文件                     |
     | git rm --cached  <file> | 将文件从Git跟踪列表或缓存区移除，但不从磁盘删除              |
-
+    | git rm -r --cached .    | 所有文件从Git跟踪列表或缓存区移除                            |
     
 
 ------
-
-
 
 ### git remote
 
@@ -489,9 +447,6 @@ git push --set-upstream origin llh-0114
 ### git revert
 
 -   **描述：**
-    -   
-
-
 
 ------
 
@@ -522,8 +477,6 @@ git push --set-upstream origin llh-0114
 
 ------
 
-
-
 ### git tag
 
 -   **描述：**
@@ -538,11 +491,7 @@ git push --set-upstream origin llh-0114
     | ------- | -------- |
     | git tag | 列出标签 |
 
-
-
 ------
-
-
 
 ## Git问题
 
